@@ -18,9 +18,10 @@ public class MembersRouter {
                 .andRoute(GET("/functional/members/{id}"),membersHandler::getMembersForId)
                 .andRoute(GET("/functional/members/byCodeBar/{codeBar}"),membersHandler::getMembersForCodeBar)
                 .andRoute(POST("/functional/members"),membersHandler::insertMembers)
-                .andRoute(POST("/functional/membersPs"),membersHandler::insertMembersPs)
                 .andRoute(PUT("/functional/members/{id}"),membersHandler::updateMembers)
-                .andRoute(DELETE("/functional/members/{id}"),membersHandler::deleteMembers);
+                .andRoute(DELETE("/functional/members/{id}"),membersHandler::deleteMembers)
+                .andRoute(GET("/functional/membersPs"), membersHandler::listMembersPs)
+                .andRoute(POST("/functional/membersPs"),membersHandler::insertMembersPs);
 
     }
 }

@@ -67,26 +67,6 @@ public class MembersHandler {
                 .switchIfEmpty(response406);
     }
 
-    public Mono<ServerResponse> insertMembersPs(ServerRequest request){
-        Mono<MembersDto> membersMono = request.bodyToMono(MembersDto.class);
-
-        return membersMono.flatMap(
-                membersDto -> membersPsRepository.save(MembersEntity.builder()
-                        .id(membersDto.id())
-                        .name(membersDto.name())
-                        .nameSecond(membersDto.nameSecond())
-                        .tower(membersDto.tower())
-                        .apart(membersDto.apart())
-                        .coefficient(membersDto.coefficient())
-                        .canVote(membersDto.canVote())
-                        .codeBar(membersDto.codeBar())
-                        .build())
-                        .flatMap(membersEntity -> ServerResponse.accepted()
-                                .contentType(MediaType.APPLICATION_JSON)
-                                .body(fromValue(membersEntity))))
-                .switchIfEmpty(response406);
-    }
-
     public Mono<ServerResponse> updateMembers(ServerRequest request){
         Mono<Members> membersMono = request.bodyToMono(Members.class);
         String id = request.pathVariable("id");
@@ -121,6 +101,36 @@ public class MembersHandler {
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(delete,Void.class);
     }
+
+    public Mono<ServerResponse> listMembersPs(ServerRequest request){
+        return ServerResponse.ok()
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(membersPsRepository.findAll(), Members.class);
+    }
+
+    public Mono<ServerResponse> insertMembersPs(ServerRequest request){
+        Mono<MembersDto> membersMono = request.bodyToMono(MembersDto.class);
+
+        return membersMono.flatMap(
+                        membersDto -> membersPsRepository.save(MembersEntity.builder()
+                                        .id(membersDto.id())
+                                        .name(membersDto.name())
+                                        .nameSecond(membersDto.nameSecond())
+                                        .tower(membersDto.tower())
+                                        .apart(membersDto.apart())
+                                        .coefficient(membersDto.coefficient())
+                                        .canVote(membersDto.canVote())
+                                        .codeBar(membersDto.codeBar())
+                                        .build())
+                                .flatMap(membersEntity -> ServerResponse.accepted()
+                                        .contentType(MediaType.APPLICATION_JSON)
+                                        .body(fromValue(membersEntity))))
+                .switchIfEmpty(response406);
+    }
+
 }
+
+
+
 
 
