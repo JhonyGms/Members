@@ -9,12 +9,12 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Members {
 
     @Id
-    private String id;
+    private Integer id;
     private String name;
     private String nameSecond;
     private String tower;
     private String apart;
-    private float coefficient;
+    private double coefficient;
     private boolean canVote;
     private String codeBar;
 

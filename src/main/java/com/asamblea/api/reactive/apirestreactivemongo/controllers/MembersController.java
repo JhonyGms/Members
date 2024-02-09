@@ -46,7 +46,7 @@ public class MembersController {
     public Mono<ResponseEntity<Members>> editMember(@RequestBody Members members,@PathVariable String id){
         return membersRepository.findById(id)
                 .flatMap(membersUpdate -> {
-                    members.setId(id);
+                    members.setId(Integer.parseInt(id));
                     return membersRepository.save(members)
                             .map(members1 -> new ResponseEntity<>(members1, HttpStatus.ACCEPTED));
                 })

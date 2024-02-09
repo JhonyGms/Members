@@ -24,7 +24,7 @@ public class MembersEntity {
     @Column("apart")
     private String apart;
     @Column("coefficient")
-    private float coefficient;
+    private double coefficient;
     @Column("canVote")
     private boolean canVote;
     @Column("codeBar")
